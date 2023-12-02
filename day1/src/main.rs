@@ -60,28 +60,32 @@ fn main() {
     println!("{}", result)
 }
 
-// let numbers: Vec<Vec<char>> = content
-//     .map(|line| {
-//         line.chars()
-//             .filter(|char| char.is_numeric())
-//             .collect::<Vec<char>>()
-//     })
-//     .collect();
-// let mut result = 0;
-// for line in numbers {
-//     let num: u32 = match line.len() {
-//         0 => 0,
-//         _ => {
-//             let first = line.first().unwrap();
-//             let last = line.last().unwrap();
-//             (first.to_string() + &last.to_string())
-//                 .parse::<u32>()
-//                 .ok()
-//                 .unwrap()
-//         }
-//     };
-//
-//     result += num
-// }
-// println!("{}", result)
-// }
+pub fn part_1() {
+    let file_path = "day1/input.txt";
+    let binding = fs::read_to_string(file_path).unwrap();
+    let content = binding.lines();
+    let numbers: Vec<Vec<char>> = content
+        .map(|line| {
+            line.chars()
+                .filter(|char| char.is_numeric())
+                .collect::<Vec<char>>()
+        })
+        .collect();
+    let mut result = 0;
+    for line in numbers {
+        let num: u32 = match line.len() {
+            0 => 0,
+            _ => {
+                let first = line.first().unwrap();
+                let last = line.last().unwrap();
+                (first.to_string() + &last.to_string())
+                    .parse::<u32>()
+                    .ok()
+                    .unwrap()
+            }
+        };
+
+        result += num
+    }
+    println!("{}", result)
+}
