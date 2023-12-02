@@ -1,8 +1,8 @@
 use regex::Regex;
 use std::collections::HashMap;
-use std::{fs, io::Write};
+use std::fs;
 fn main() {
-    let file_path = "day1/input.txt";
+    let file_path = "./input.txt";
     let binding = fs::read_to_string(file_path).unwrap();
     let content = binding.lines();
 
