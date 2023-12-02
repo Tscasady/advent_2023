@@ -1,4 +1,3 @@
-use regex::Regex;
 use std::collections::HashMap;
 use std::fs;
 fn main() {
