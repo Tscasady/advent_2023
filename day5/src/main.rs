@@ -1,3 +1,4 @@
+use std::cmp::min;
 use std::fs;
 use std::ops::Range;
 
@@ -17,7 +18,13 @@ fn main() {
         .iter()
         .map(|chunk| chunk[1..].iter().map(|s| Map::new(s)).collect())
         .collect();
-    println!("{:?}", seeds)
+    let mut min_location = i64::MAX;
+    for seed in seeds {
+        for map in maps {
+            min_location = min(min_location, get_location(seed))
+        }
+    }
+    println!("{:?}", min_location)
 }
 
 struct Map {
@@ -27,6 +34,17 @@ struct Map {
 
 impl Map {
     fn new(data: &str) -> Self {
-        todo!()
+        let numbers: Vec<i64> = data
+            .split_whitespace()
+            .map(|s| s.parse::<i64>().unwrap())
+            .collect();
+        Map {
+            range: (numbers[1]..numbers[1] + numbers[2]),
+            start: numbers[0],
+        }
     }
+}
+
+fn get_location(seed: i64) -> i64 {
+    todo!()
 }
