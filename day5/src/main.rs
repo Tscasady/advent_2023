@@ -1,7 +1,6 @@
 use std::cmp::min;
 use std::collections::HashSet;
 use std::fs;
-use std::hash::Hasher;
 use std::ops::Range;
 
 fn main() {
