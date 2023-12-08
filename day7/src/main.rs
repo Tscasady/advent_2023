@@ -14,7 +14,7 @@ fn main() {
 }
 
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Debug)]
 struct Hand {
     bid: u32,
     kind: HandType,
@@ -22,7 +22,7 @@ struct Hand {
 }
 
 
-#[derive(PartialEq, PartialOrd, Eq, Ord)]
+#[derive(PartialEq, PartialOrd, Eq, Ord, Debug)]
 enum HandType {
     HighCard,
     Pair,
@@ -57,7 +57,7 @@ impl Hand {
                 'A' => 14,
                 'K' => 13,
                 'Q' => 12,
-                'J' => 11,
+                'J' => 1,
                 'T' => 10,
                 c => c.to_digit(10).unwrap()
             }
@@ -89,21 +89,44 @@ impl HandType {
         let mut hash: HashMap<char, u32> = Default::default(); 
 
         data.chars().for_each(|c| *hash.entry(c).or_insert(0) += 1);
-        match hash.values().max().unwrap() {
-            5 => HandType::Five,
+        let wildcard = *hash.get(&'J').unwrap_or(&0);
+        let handtype = match hash.values().max().unwrap() {
             4 => HandType::Four,
             3 => if hash.values().any(|value| *value == 2) {
                 HandType::FullHouse
             } else {
                 HandType::Three
             },
-            2 => if hash.values().filter(|&&value| value == 2).count() == 2 {
-                HandType::TwoPair
-            } else {
-                HandType::Pair
-            },
-            1 => HandType::HighCard,
-            _ => unreachable!()
+                2 => if hash.values().filter(|&&value| value == 2).count() == 2 {
+                    HandType::TwoPair
+                } else {
+                    HandType::Pair
+                },
+                    1 => HandType::HighCard,
+                    _ => HandType::Five
+        };
+
+        if wildcard != 0 {
+            HandType::increment(handtype, wildcard)
+        } else {
+            handtype
         }
+    }
+
+    fn increment(handtype: Self, wildcard_count: u32) -> Self {
+        match handtype {
+            Self::FullHouse | Self::Three => match wildcard_count {
+                1 => Self::Four,
+                _ => HandType::Five
+            },
+            Self::TwoPair => match wildcard_count {
+                1 => Self::FullHouse,
+                _ => Self::Four
+            },
+            Self::Pair => Self::Three,
+            Self::HighCard => Self::Pair,
+            _ => HandType::Five
+        }
+
     }
 }
