@@ -1,0 +1,10 @@
+LR
+
+ABA = (CCB, XXX)
+CCB = (XXX, DDZ)
+DDZ = (CCB, XXX)
+EEA = (FFB, XXX)
+FFB = (GGC, GGC)
+GGC = (HHZ, HHZ)
+HHZ = (FFB, FFB)
+XXX = (XXX, XXX)
