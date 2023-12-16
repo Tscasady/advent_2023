@@ -2,7 +2,8 @@ use core::str::Lines;
 
 fn main() {
     let content = include_str!("../input.txt").lines();
-    println!("{}", part1(content));
+    println!("{}", part1(content.clone()));
+    println!("{}", part2(content));
 }
 
 fn part1(data: Lines<'_>) -> i64 {
@@ -17,9 +18,23 @@ fn part1(data: Lines<'_>) -> i64 {
             .iter()
             .fold(0, |acc, nums| acc + nums.last().unwrap())
     }).sum()
-
 }
 
+fn part2(data: Lines<'_>) -> i64 {
+    let lines: Vec<Vec<i64>> = data.map(|line| {
+        line.split(' ')
+            .map(|num| num.parse::<i64>().unwrap())
+            .collect()
+    }).collect();
+    lines.into_iter().map(|line| {
+        let nums_diff = vec![];
+        find_next_num(line, nums_diff)
+            .iter()
+            .rev()
+            .fold(0, |acc, nums| nums.first().unwrap() - acc)
+    }).sum()
+
+}
 
 fn find_next_num(nums: Vec<i64>, mut nums_diff: Vec<Vec<i64>>) -> Vec<Vec<i64>> {
     nums_diff.push(nums.clone());
@@ -41,14 +56,6 @@ fn find_next_num(nums: Vec<i64>, mut nums_diff: Vec<Vec<i64>>) -> Vec<Vec<i64>> 
 
 
 
-
-
-
-
-
-
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -57,6 +64,12 @@ mod tests {
     fn part1_test() {
         let input = include_str!("./test.txt").lines();
         assert_eq!(part1(input), 114)
+    }
+
+    #[test]
+    fn part2_test() {
+        let input = include_str!("./test.txt").lines();
+        assert_eq!(part2(input), 2)
     }
 
     #[test]
