@@ -1,7 +1,7 @@
 use std::cmp::Ordering;
 
 fn main() {
-    let lines = include_str!("../src/test.txt")
+    let lines = include_str!("../input.txt")
         .lines()
         .map(|line| {
             line.split(':')
