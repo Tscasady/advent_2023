@@ -1,0 +1,6 @@
+i have a workflow
+i have a part
+
+for a given workflow, i have a series of checks
+  if any of the checks pass, i am given a new wokflow, or i am given an "A" or an "R"
+  if all of the checks fail, i have a default result
