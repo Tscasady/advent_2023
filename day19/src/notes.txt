@@ -1,0 +1,51 @@
+x: 4000 m: 4000 a: 4000 s: 4000
+s: 1-1350
+a: 1-2005
+x: 1-1415
+
+//update result if we hit 'A' by adding any new numbers to results
+//if we hit 'r' update current set of testing ranges by removing the values that pointed us to r
+//create new set of ranges based on last set (not results)
+//remove success from current so 1351-4000 becomes 1351-3447
+
+x: 1416-4000 m: 4000 a: 2006-4000 s: 1351-4000
+s: 2770 - 4000
+s: 3448 - 4000
+
+x: 1417-4000 m: 4000 a: 2006-4000 s: 1351-3447
+s: 2770-3447
+m: 1548-4000
+
+x: 1417-4000 m: 1-1547  a: 2006-4000 s: 1353 - 2770
+
+
+
+
+alternate idea, a queue to traverse a tree
+if hit 'a' update result and pop from queue. 
+'r' pop from queue
+
+x: 4000 m: 4000 a: 4000 s: 4000
+[PartRange {x: all, m: all, a: all, s: 1351 - 4000}, PartRange {x: all m: all s: 1351 - 4000, a: 2006 - 4000}] each instance of the q is a set of ranges, where each range is the current range, but take the opposite action for the current test
+s: 1-1350
+a: 1-2005
+x: 1-1416
+result 
+  s: 1-1350
+  a: 1-2005
+  m: all
+  x: 1-1416
+x: 1416+
+x 2662 + 
+result
+  s: 1-1350
+  a: 1-2005
+  m: all
+  x : 1-1416, 2662 + 
+
+
+
+x: 1416-4000 m: 4000 a: 4000 s: 4000
+s: 1-1350
+a: 1-2005
+x: 1416-2662
